@@ -1,0 +1,16 @@
+.profile__text {
+  color: var(--color-light);
+  font-family: 'Inter';
+  font-size: 18px;
+  line-height: 18px;
+  min-width: 336px;
+  margin: 0;
+  order: 3;
+}
+
+@media (max-width: 767px) {
+  .profile__text {
+    font-size: 14px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,20 @@
+.profile__name {
+  font-family: 'Inter';
+  color: var(--color-light);
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 48px;
+  min-width: 294px;
+  margin: 0 0 10px 0;
+  order: 1;
+}
+
+@media (max-width: 767px) {
+  .profile__name {
+    font-size: 27px;
+    text-align: center;
+    min-width: 189px;
+    margin: 0;
+    padding-left: 27px;
+  }
+}

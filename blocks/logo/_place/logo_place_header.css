@@ -5,5 +5,6 @@
 @media (max-width: 767px) {
   .logo_place_header {
     margin-left: 27px;
+    max-width: 104px;
   }
 }
