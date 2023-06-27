@@ -15,9 +15,10 @@
 @import url(../blocks/profile/__text/profile__text.css);
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
-@import url(../blocks/element/__card-title/card-title.css);
+@import url(../blocks/element/__card-title/element__card-title.css);
 @import url(../blocks/element/__image/element__image.css);
 @import url(../blocks/element/__like/element__like.css);
 @import url(../blocks/element/__text/element__text.css);
+@import url(../blocks/element/__card-title/_type/element__card-title_type_dombay.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
