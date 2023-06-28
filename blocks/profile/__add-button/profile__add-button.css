@@ -11,6 +11,12 @@
   align-self: center;
   justify-self: flex-end;
   background-color: var(--color-dark);
+  opacity: 1;
+  transition: opacity 0.15s linear;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
 }
 
 @media (max-width: 767px) {

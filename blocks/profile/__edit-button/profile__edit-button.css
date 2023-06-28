@@ -7,6 +7,12 @@
   background-size: cover;
   margin: 15px 0 0 18px;
   order: 2;
+  opacity: 1;
+  transition: opacity 0.15s linear;
+}
+
+.profile__edit-button:hover {
+  opacity: 0.6;
 }
 
 @media (max-width: 767px) {
