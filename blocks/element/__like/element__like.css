@@ -4,6 +4,7 @@
   height: 19px;
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: transparent;
   opacity: 1;
   transition: opacity 0.15s linear;
   border: none;

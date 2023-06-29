@@ -5,8 +5,7 @@
   width: 24px;
   height: 24px;
   background-size: cover;
-  margin: 15px 0 0 18px;
-  order: 2;
+  margin: 6px 0 0;
   opacity: 1;
   transition: opacity 0.15s linear;
 }
@@ -17,7 +16,7 @@
 
 @media (max-width: 767px) {
   .profile__edit-button {
-    margin: 0 0 0 10px;
+    margin: 0;
     width: 18px;
     height: 18px;
   }
