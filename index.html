@@ -8,75 +8,77 @@
   </head>
   <body class="page">
     <header class="header">
-      <img src="./images/logo.svg" class="logo logo_place_header" alt="Место">
+      <img src="./images/logo.svg" class="logo logo_place_header" alt="Логотип странички с надписью Mesto Russia">
     </header>
     <main class="content">
       <section class="profile">
         <div class="profile__avatar"></div>
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button"></button>
+          <button class="profile__edit-button" aria-label="Кнопка редактировать профиль"></button>
           <p class="profile__text">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button" aria-label="Кнопка добавить"></button>
       </section>
       <section class="elements" aria-label="Фотографии">
         <article class="element">
-          <img src="./images/karachaevsk.png" alt="Карачаевск" class="element__image">
+          <img src="./images/karachaevsk.png" alt="Архитектурное старинное здание, похожее на церковь на фоне поля, леса и гор" class="element__image">
           <div class="element__card-title">
             <h2 class="element__text">Карачаевск</h2>
-            <button type="button" class="element__like"></button>
+            <button type="button" class="element__like" aria-label="Кнопка лайка"></button>
           </div>
         </article>
         <article class="element">
-          <img src="./images/elbrus-mountin.png" alt="Гора Эльбрус" class="element__image">
+          <img src="./images/elbrus-mountin.png" alt="Равнина с небольшими холмами и вдалеке гора Эльбрус" class="element__image">
           <div class="element__card-title">
             <h2 class="element__text">Гора Эльбрус</h2>
-            <button type="button" class="element__like"></button>
+            <button type="button" class="element__like" aria-label="Кнопка лайка"></button>
           </div>
         </article>
         <article class="element">
-          <img src="./images/dombay.png" alt="Домбай" class="element__image">
-          <div class="element__card-title element__card-title_type_dombay">
+          <img src="./images/dombay.png" alt="Хвойный лес в горах, на заднем плане лысая заснеженна гора" class="element__image">
+          <div class="element__card-title">
             <h2 class="element__text">Домбай</h2>
-            <button type="button" class="element__like"></button>
+            <button type="button" class="element__like" aria-label="Кнопка лайка"></button>
           </div>
         </article>
         <article class="element">
-          <img src="./images/elbrus-mountin.png" alt="Гора Эльбрус" class="element__image">
+          <img src="./images/elbrus-mountin.png" alt="Равнина с небольшими холмами и вдалеке гора Эльбрус" class="element__image">
           <div class="element__card-title">
             <h2 class="element__text">Гора Эльбрус</h2>
-            <button type="button" class="element__like"></button>
+            <button type="button" class="element__like" aria-label="Кнопка лайка"></button>
           </div>
         </article>
         <article class="element">
-          <img src="./images/dombay.png" alt="Домбай" class="element__image">
-          <div class="element__card-title element__card-title_type_dombay">
+          <img src="./images/dombay.png" alt="Хвойный лес в горах, на заднем плане лысая заснеженна гора" class="element__image">
+          <div class="element__card-title">
             <h2 class="element__text">Домбай</h2>
-            <button type="button" class="element__like"></button>
+            <button type="button" class="element__like" aria-label="Кнопка лайка"></button>
           </div>
         </article>
         <article class="element">
-          <img src="./images/karachaevsk.png" alt="Карачаевск" class="element__image">
+          <img src="./images/karachaevsk.png" alt="Архитектурное старинное здание, похожее на церковь на фоне поля, леса и гор" class="element__image">
           <div class="element__card-title">
             <h2 class="element__text">Карачаевск</h2>
-            <button type="button" class="element__like"></button>
+            <button type="button" class="element__like" aria-label="Кнопка лайка"></button>
           </div>
         </article>
-      </section>
-      <section class="popup">
-        <form action="#" class="popup__container">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" class="popup__name" value="Жак-Ив Кусто">
-          <input type="text" class="popup__occupation" value="Исследователь океана">
-          <button class="popup__exit"></button>
-          <input type="submit" class="popup__submit" value="Сохранить">
-        </form>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
-    <script type="module" src="./scripts/index.js"></script>
+    <div class="popup">
+      <div class="popup__container">
+        <form action="#" name="EditProfileForm" method="POST" class="popup__form">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input type="text" name="popup__name" id="popup__name" class="popup__input" placeholder="Имя">
+          <input type="text" name="popup__occupation" id="popup__occupation" class="popup__input" placeholder="О себе">
+          <button type="button" class="popup__exit" aria-label="Кнопка выхода"></button>
+          <button type="submit" class="popup__submit" aria-label="Кнопка сохранить">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
