@@ -17,4 +17,4 @@
 * БЭМ
 
 **Ознакомиться с проектом вы можете по ссылке ниже**
-* [Место](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+* [Место](https://xmlhttprequest404.github.io/mesto/index.html)
