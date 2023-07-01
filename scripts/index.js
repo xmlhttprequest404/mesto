@@ -5,7 +5,7 @@ let editButton = document.querySelector('.profile__edit-button');
 // Элементы блока popup
 let popup = document.querySelector('.popup');
 let formElement = popup.querySelector('.popup__form');
-let popupExit = formElement.querySelector('.popup__exit');
+let popupExit = popup.querySelector('.popup__exit');
 let popupInputName = formElement.querySelector('#popup__name');
 let popupInputOccupation = formElement.querySelector('#popup__occupation');
 
