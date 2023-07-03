@@ -1,16 +1,16 @@
 // Элементы блока profile
-let profileName = document.querySelector('.profile__name');
-let profileText = document.querySelector('.profile__text');
-let editButton = document.querySelector('.profile__edit-button');
+const profileName = document.querySelector('.profile__name');
+const profileText = document.querySelector('.profile__text');
+const editButton = document.querySelector('.profile__edit-button');
 // Элементы блока popup
-let popup = document.querySelector('.popup');
-let formElement = popup.querySelector('.popup__form');
-let popupExit = popup.querySelector('.popup__exit');
-let popupInputName = formElement.querySelector('#popup__name');
-let popupInputOccupation = formElement.querySelector('#popup__occupation');
+const popup = document.querySelector('.popup');
+const formElement = popup.querySelector('.popup__form');
+const popupExit = popup.querySelector('.popup__exit');
+const popupInputName = formElement.querySelector('#popup__name');
+const popupInputOccupation = formElement.querySelector('#popup__occupation');
 
 // Элемент блока element
-let like = document.querySelectorAll('.element__like');
+const like = document.querySelectorAll('.element__like');
 
 function toggleLike() {  // переключатель лайков
   for (let i = 0; i < like.length; i++) {
@@ -37,13 +37,10 @@ function handleFormSubmit (evt) {  // обработчик полей формы
   closePopup();
 }
 
-function popupHandle () {  // Обработчик формы
-  editButton.addEventListener('click', openPopup);
-  popupExit.addEventListener('click', closePopup);
-  formElement.addEventListener('submit', handleFormSubmit);
-}
+editButton.addEventListener('click', openPopup);
+popupExit.addEventListener('click', closePopup);
+formElement.addEventListener('submit', handleFormSubmit);
 
 toggleLike();
-popupHandle();
 
 
