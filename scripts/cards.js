@@ -60,3 +60,16 @@ const renderCards = (image, text, alt) => {
 initialCards.forEach((item) => {
   renderCards(item.link, item.name, item.alt);
 });
+
+function removeCard() {
+  const trashButton = document.querySelectorAll('.element__trash');
+  const card = document.querySelectorAll('.element');
+  trashButton.forEach((item) => {
+    item.addEventListener('click', (evt) => {
+      evt.target.parentNode.remove();
+    });
+  });
+  
+}
+
+removeCard();
