@@ -54,12 +54,9 @@ const renderCards = (image, text, alt) => {
   cardsElement.querySelector('.element__image').src = image;
   cardsElement.querySelector('.element__image').alt = alt;
   cardsElement.querySelector('.element__text').textContent = text;
-  container.append(cardsElement);
+  container.prepend(cardsElement);
 };
 
 initialCards.forEach((item) => {
   renderCards(item.link, item.name, item.alt);
 });
-
-const addButton = document.querySelector('.profile__add-button');
-renderForm('Новое место', 'Название', 'Ссылка на картинку', addButton);
