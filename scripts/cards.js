@@ -43,33 +43,15 @@ const initialCards = [
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
     alt: 'Холмистое побережье Байкала зимой'
+  },
+  {
+    name: 'Карачаево-Черкессия',
+    link: '../images/karachaevsk1.png',
+    alt: 'Архитектурное старинное здание, похожее на церковь на фоне поля, леса и гор'
+  },
+  {
+    name: 'Горный Алтай',
+    link: '../images/altay.png',
+    alt: 'Горный лес в тумане'
   }
 ];
-
-const container = document.querySelector('.elements');
-const template = document.querySelector('#elements').content;
-
-const renderCards = (image, text, alt) => {
-  const cardsElement = template.querySelector('.element').cloneNode(true);
-  cardsElement.querySelector('.element__image').src = image;
-  cardsElement.querySelector('.element__image').alt = alt;
-  cardsElement.querySelector('.element__text').textContent = text;
-  container.prepend(cardsElement);
-};
-
-initialCards.forEach((item) => {
-  renderCards(item.link, item.name, item.alt);
-});
-
-function removeCard() {
-  const trashButton = document.querySelectorAll('.element__trash');
-  const card = document.querySelectorAll('.element');
-  trashButton.forEach((item) => {
-    item.addEventListener('click', (evt) => {
-      evt.target.parentNode.remove();
-    });
-  });
-  
-}
-
-removeCard();
