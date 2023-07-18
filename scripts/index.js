@@ -1,31 +1,14 @@
 function openPopup(element) {
   element.classList.add('popup_opened');
 }
-
+  
 function closePopup(element) {
   element.classList.remove('popup_opened');
 }
 
-function renderCard(name, link, alt) {
-  const template = document.querySelector('#elements').content;
-  const container = document.querySelector('.elements');
-  const cardsElement = template.querySelector('.element').cloneNode(true);
-  cardsElement.querySelector('.element__image').src = link;
-  cardsElement.querySelector('.element__image').alt = alt;
-  cardsElement.querySelector('.element__text').textContent = name;
-  container.prepend(cardsElement);
-}
-
 function makeProfileForm() {
-  const profileName = document.querySelector('.profile__name');
-  const profileText = document.querySelector('.profile__text');
-  const editButton = document.querySelector('.profile__edit-button');
-  const popupProfile = document.querySelector('.popup_profile');
-  const exitButton = popupProfile.querySelector('.popup__exit');
-  const profileInputName = popupProfile.querySelector('.popup__input_name');
-  const profileInputOccupation = popupProfile.querySelector('.popup__input_occupation');
-  
-  function handleFormSubmit (evt) { 
+
+  function handleProfileFormSubmit (evt) { 
     evt.preventDefault();
     profileName.textContent = profileInputName.value;
     profileText.textContent = profileInputOccupation.value;
@@ -37,36 +20,50 @@ function makeProfileForm() {
     profileInputOccupation.value = profileText.textContent;
     openPopup(popupProfile);
   });
-  exitButton.addEventListener('click', () => {
+  exitProfileButton.addEventListener('click', () => {
     closePopup(popupProfile)
   });
-  popupProfile.addEventListener('submit', handleFormSubmit);
+  popupProfile.addEventListener('submit', handleProfileFormSubmit);
+}
+
+function createCard(name, link, alt) {
+  const template = document.querySelector('#elements').content;
+  const cardsElement = template.querySelector('.element').cloneNode(true);
+  const like = cardsElement.querySelector('.element__like');
+  const trashButton = cardsElement.querySelector('.element__trash');
+  const cardImage = cardsElement.querySelector('.element__image');
+  const cardText = cardsElement.querySelector('.element__text');
+  
+  cardImage.src = link;
+  cardImage.alt = alt;
+  cardText.textContent = name;
+
+  trashButton.addEventListener('click', (evt) => {
+    evt.target.closest('.element').remove();
+  });
+  
+  cardImage.addEventListener('click', (evt) => {
+    popupImage.src = evt.target.src;
+    popupText.textContent = cardText.textContent;
+    popupImage.alt = evt.target.alt;
+    openPopup(popupZoomCard);
+  });
+  
+  like.addEventListener('click', (evt) => {
+      evt.target.classList.toggle('element__like_theme_dark');
+  });
+  
+  return cardsElement;
 }
 
 function makeAddCardsForm() {
-  const popupCards = document.querySelector('.popup_cards');
-  const exitButton = popupCards.querySelector('.popup__exit');
-  const cardsInputTitle = popupCards.querySelector('.popup__input_title');
-  const cardsInputLink = popupCards.querySelector('.popup__input_url-image');
-  const addButton = document.querySelector('.profile__add-button');
-  const popupForm = popupCards.querySelector('.popup__form');
-
-  function handleFormSubmit(evt) {
+  
+  function handleAddCardsFormSubmit(evt) {
     evt.preventDefault();
-    initialCards.push({name: cardsInputTitle.value, link: cardsInputLink.value, alt: 'Карточка пользователя'});
-
-    const name = initialCards[initialCards.length - 1].name;
-    const link = initialCards[initialCards.length - 1].link;
-    const alt = initialCards[initialCards.length - 1].alt;
-
-    renderCard(name, link, alt);
-    makeCards();
-
-    const cardUserLike = document.querySelectorAll('.element__like')[0];
-    cardUserLike.addEventListener('click', (evt) => {
-      evt.target.classList.toggle('element__like_theme_dark');
-    });
-
+    const name = cardsInputTitle.value;
+    const link = cardsInputLink.value;
+    const alt = cardsInputTitle.value;
+    container.prepend(createCard(name, link, alt));
     popupForm.reset();
     closePopup(popupCards);
   }
@@ -74,60 +71,19 @@ function makeAddCardsForm() {
   addButton.addEventListener('click', () => {
     openPopup(popupCards);
   });
-  exitButton.addEventListener('click', () => {
+  exitAddCardsFormButton.addEventListener('click', () => {
     closePopup(popupCards);
   });
-  popupCards.addEventListener('submit', handleFormSubmit);
+  popupCards.addEventListener('submit', handleAddCardsFormSubmit);
 }
 
-function makeCards() {
-  const popupCards = document.querySelector('.popup_element');
-  const exitButton = popupCards.querySelector('.popup__exit');
-  
-  function removeCardHandler() {
-    const trashButton = document.querySelectorAll('.element__trash');
-    trashButton.forEach((item) => {
-      item.addEventListener('click', (evt) => {
-        evt.target.closest('.element').remove();
-      });
-    });
-  }
-  
-  function makeCardPopup() {
-    const card = document.querySelectorAll('.element');
-    card.forEach((item) => {
-      const image = item.querySelector('.element__image');
-      const text = item.querySelector('.element__text');
-      image.addEventListener('click', (evt) => {
-        popupCards.querySelector('.popup__image').src = evt.target.src;
-        popupCards.querySelector('.popup__text').textContent = text.textContent;
-        openPopup(popupCards);
-      });
-    });
-  }
-
-  removeCardHandler();
-  makeCardPopup();
-  
-  exitButton.addEventListener('click', () => {
-  closePopup(popupCards);
+exitZoomButton.addEventListener('click', () => {
+  closePopup(popupZoomCard);
 });
-}
-
-function toggleLike() {
-  const like = document.querySelectorAll('.element__like');
-  like.forEach((item) => {
-    item.addEventListener('click', (evt) => {
-      evt.target.classList.toggle('element__like_theme_dark');
-    });
-  });
-}
 
 initialCards.forEach((item) => {
-  renderCard(item.name, item.link, item.alt);
+  container.prepend(createCard(item.name, item.link, item.alt));
 });
-toggleLike();
-makeCards();
+
 makeProfileForm();
 makeAddCardsForm();
-
