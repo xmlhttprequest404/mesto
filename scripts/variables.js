@@ -1,6 +1,16 @@
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitSelector: '.popup__submit',
+  inactiveSubmitClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorVisibleClass: 'popup__error_visible',
+  fieldsetSelector: '.popup__set'
+};
+
 const container = document.querySelector('.elements');
 
-// createCard 
+// createCard
 const popupZoomCard = document.querySelector('.popup_element');
 const popupImage = popupZoomCard.querySelector('.popup__image');
 const popupText = popupZoomCard.querySelector('.popup__text');
