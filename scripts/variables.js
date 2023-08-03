@@ -4,31 +4,64 @@ const validationConfig = {
   submitSelector: '.popup__submit',
   inactiveSubmitClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorVisibleClass: 'popup__error_visible',
-  fieldsetSelector: '.popup__set'
+  errorVisibleClass: 'popup__error_visible'
 };
 
-const container = document.querySelector('.elements');
-
-// createCard
-const popupZoomCard = document.querySelector('.popup_element');
-const popupImage = popupZoomCard.querySelector('.popup__image');
-const popupText = popupZoomCard.querySelector('.popup__text');
-const exitZoomButton = popupZoomCard.querySelector('.popup__exit');
-
-// makeAddCardsForm
-const popupCards = document.querySelector('.popup_cards');
-const exitAddCardsFormButton = popupCards.querySelector('.popup__exit');
-const cardsInputTitle = popupCards.querySelector('.popup__input_title');
-const cardsInputLink = popupCards.querySelector('.popup__input_url-image');
-const addButton = document.querySelector('.profile__add-button');
-const popupForm = popupCards.querySelector('.popup__form');
-
-// makeProfileForm
-const profileName = document.querySelector('.profile__name');
-const profileText = document.querySelector('.profile__text');
-const editButton = document.querySelector('.profile__edit-button');
-const popupProfile = document.querySelector('.popup_profile');
-const exitProfileButton = popupProfile.querySelector('.popup__exit');
-const profileInputName = popupProfile.querySelector('.popup__input_name');
-const profileInputOccupation = popupProfile.querySelector('.popup__input_occupation');
+// cards
+const initialCards = [
+  {
+    name: 'Карачаевск',
+    link: './images/karachaevsk.png',
+    alt: 'Архитектурное старинное здание, похожее на церковь на фоне поля, леса и гор'
+  },
+  {
+    name: 'Гора Эльбрус',
+    link: './images/elbrus-mountin.png',
+    alt: 'Равнина с небольшими холмами и вдалеке гора Эльбрус'
+  },
+  {
+    name: 'Домбай',
+    link: './images/dombay.png',
+    alt: 'Хвойный лес в горах, на заднем плане лысая заснеженна гора'
+  },
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+    alt: 'Горы, покрытые зеленью'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+    alt: 'Зимний лес и река'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+    alt: 'Панельные дома вечером'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+    alt: 'Равнина перед вулканом'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+    alt: 'Рельсы идущие через лесостепь'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+    alt: 'Холмистое побережье Байкала зимой'
+  },
+  {
+    name: 'Карачаево-Черкессия',
+    link: './images/karachaevsk1.png',
+    alt: 'Архитектурное старинное здание, похожее на церковь на фоне поля, леса и гор'
+  },
+  {
+    name: 'Горный Алтай',
+    link: './images/altay.png',
+    alt: 'Горный лес в тумане'
+  }
+];
