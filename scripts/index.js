@@ -61,7 +61,6 @@ function createCard(name, link, alt) {
   const trashButton = cardsElement.querySelector('.element__trash');
   const cardImage = cardsElement.querySelector('.element__image');
   const cardText = cardsElement.querySelector('.element__text');
-
   cardImage.src = link;
   cardImage.alt = alt;
   cardText.textContent = name;
@@ -85,7 +84,6 @@ function createCard(name, link, alt) {
 }
 
 function makeAddCardsForm() {
-
   function handleAddCardsFormSubmit(evt) {
     evt.preventDefault();
     const name = cardsInputTitle.value;

@@ -30,21 +30,21 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
+const disableButton = (buttonElement, config) => {
+  buttonElement.setAttribute('disabled', true);
+  buttonElement.classList.add(config.inactiveSubmitClass);
+};
+
+const enableButton = (buttonElement, config) => {
+  buttonElement.removeAttribute('disabled');
+  buttonElement.classList.remove(config.inactiveSubmitClass);
+};
+
 const toggleButtonState = (inputList, buttonElement, config) => {
-  const disableButton = () => {
-    buttonElement.setAttribute('disabled', true);
-    buttonElement.classList.add(config.inactiveSubmitClass);
-  };
-
-  const enableButton = () => {
-    buttonElement.removeAttribute('disabled');
-    buttonElement.classList.remove(config.inactiveSubmitClass);
-  };
-
   if(hasInvalidInput(inputList)) {
-    disableButton();
+    disableButton(buttonElement, config);
   } else {
-    enableButton();
+    enableButton(buttonElement, config);
   }
 };
 
