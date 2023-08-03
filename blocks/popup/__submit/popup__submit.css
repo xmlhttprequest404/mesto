@@ -13,6 +13,7 @@
   padding: 0;
   opacity: 1;
   transition: opacity 0.15s linear;
+  pointer-events: all;
 }
 
 .popup__submit:hover {
