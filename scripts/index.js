@@ -5,27 +5,22 @@ export function openPopup(element, FormValidator) {
   element.classList.add('popup_opened');
   const buttonElement = element.querySelector(validationConfig.submitSelector);
   if (buttonElement) {
-    const inputList = Array.from(element.querySelectorAll(validationConfig.inputSelector));
-    FormValidator._toggleButtonState(inputList, element.querySelector(validationConfig.submitSelector));
+    FormValidator.enableValidation();
   }
-  window.addEventListener('keydown', (evt) => {
-    keyHandler(evt, FormValidator);
-  });
-  element.addEventListener('mousedown', (evt) => {
+  window.addEventListener('keydown', keyHandler);
+  element.addEventListener('mousedown', evt => {
     closePopupByOverlay(evt, FormValidator);
   });
 }
 
 function closePopup(element, FormValidator) {
   element.classList.remove('popup_opened');
-  const inputList = Array.from(element.querySelectorAll(validationConfig.inputSelector));
-  inputList.forEach((input) => {
-    FormValidator._hideInputError(input);
-  });
-  window.removeEventListener('keydown', (evt) => {
-    keyHandler(evt, FormValidator);
-  });
-  element.removeEventListener('click', (evt) => {
+  const buttonElement = element.querySelector(validationConfig.submitSelector);
+  if (buttonElement) {
+    FormValidator.enableValidation();
+  }
+  window.removeEventListener('keydown', keyHandler);
+  element.removeEventListener('click', evt => {
     closePopupByOverlay(evt, FormValidator);
   });
 }
@@ -36,17 +31,20 @@ const closePopupByOverlay = (evt, FormValidator) => {
   }
 }
 
-function keyHandler(evt, FormValidator) {
+function keyHandler(evt) {
     if (evt.key === 'Escape'){
       const popup = document.querySelector('.popup_opened');
-      if (popup) {
-        closePopup(popup, FormValidator);
+      if (popup && popup.classList.contains('popup_cards')) {
+        closePopup(popup, AddCardsForm);
+      } else if (popup && popup.classList.contains('popup_profile')){
+        closePopup(popup, ProfileForm);
+      } else {
+        closePopup(popup, popupZoomCard);
       }
     }
 }
 
 function makeProfileForm() {
-  const ProfileForm = new FormValidator(validationConfig, popupProfile);
 
   function handleProfileFormSubmit (evt) {
     evt.preventDefault();
@@ -70,7 +68,6 @@ function makeProfileForm() {
 }
 
 function makeAddCardsForm() {
-  const AddCardsForm = new FormValidator(validationConfig ,popupCards);
 
   function handleAddCardsFormSubmit(evt) {
     evt.preventDefault();
@@ -106,5 +103,7 @@ initialCards.forEach((item) => {
 });
 
 makeProfileForm();
+const ProfileForm = new FormValidator(validationConfig, popupProfile);
 makeAddCardsForm();
+const AddCardsForm = new FormValidator(validationConfig, popupCards);
 

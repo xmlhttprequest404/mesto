@@ -1,11 +1,12 @@
 export class FormValidator {
   constructor(config, form) {
     this._input = config.inputSelector,
-    this._submit = config.submitSelector,
     this._inactiveSubmit = config.inactiveSubmitClass,
     this._error = config.inputErrorClass,
-    this._errorVisible = config.errorVisibleClass
-    this._currentForm = form;
+    this._errorVisible = config.errorVisibleClass,
+    this._currentForm = form,
+    this._submit = this._currentForm.querySelector(config.submitSelector),
+    this._inputList = Array.from(this._currentForm.querySelectorAll(this._input));
   }
 
   _showInputError(inputElement) {
@@ -58,13 +59,12 @@ export class FormValidator {
   }
 
   _setEventListeners() {
-    const inputList = Array.from(this._currentForm.querySelectorAll(this._input));
-    const buttonElement = this._currentForm.querySelector(this._submit);
-    inputList.forEach(inputElement => {
+    this._inputList.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState(this._inputList, this._submit);
       });
+
     });
   }
 
