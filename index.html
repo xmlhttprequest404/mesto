@@ -5,12 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./pages/index.css">
     <link type="image/png" sizes="32x32" rel="icon" href="images/icons8-walter-white-32.png">
-    <script src="./scripts/variables.js" defer></script> <!--Да, я в курсе про атрибут defer, спасибо) но в одном из прошлых проектов попробовал использовать модули
-    и ревьер сказал, что это хорошо, что пробуете модули, но в рамках этого проекта это не нужно и сказал переделывать. Ну я и подумал, что раз про defer
-    в теории ничего не было, то и использовать его пока что не стоит.-->
+    <script src="./scripts/variables.js" defer></script>
     <script src="./scripts/elements.js" defer></script>
-    <script src="./scripts/validate.js" defer></script>
-    <script src="./scripts/index.js" defer></script>
     <title>Mesto</title>
   </head>
   <body class="page">
@@ -87,5 +83,8 @@
         </div>
       </article>
     </template>
+    <script type="module" src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/Card.js"></script>
+    <script type="module" src="./scripts/FormValidator.js"></script>
   </body>
 </html>
