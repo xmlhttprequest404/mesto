@@ -1,73 +1,36 @@
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
+import { openPopup, closePopup } from "./utils/utils.js";
 
-export function openPopup(element, FormValidator) {
-  element.classList.add('popup_opened');
-  const buttonElement = element.querySelector(validationConfig.submitSelector);
-  if (buttonElement) {
-    FormValidator.enableValidation();
-  }
-  window.addEventListener('keydown', keyHandler);
-  element.addEventListener('mousedown', evt => {
-    closePopupByOverlay(evt, FormValidator);
-  });
+const createCard = function(data, template) {
+  const card = new Card(data, template);
+  return card;
 }
 
-function closePopup(element, FormValidator) {
-  element.classList.remove('popup_opened');
-  const buttonElement = element.querySelector(validationConfig.submitSelector);
-  if (buttonElement) {
-    FormValidator.enableValidation();
-  }
-  window.removeEventListener('keydown', keyHandler);
-  element.removeEventListener('click', evt => {
-    closePopupByOverlay(evt, FormValidator);
-  });
-}
-
-const closePopupByOverlay = (evt, FormValidator) => {
-  if (evt.currentTarget === evt.target) {
-    closePopup(evt.currentTarget, FormValidator);
-  }
-}
-
-function keyHandler(evt) {
-    if (evt.key === 'Escape'){
-      const popup = document.querySelector('.popup_opened');
-      if (popup && popup.classList.contains('popup_cards')) {
-        closePopup(popup, AddCardsForm);
-      } else if (popup && popup.classList.contains('popup_profile')){
-        closePopup(popup, ProfileForm);
-      } else {
-        closePopup(popup, popupZoomCard);
-      }
-    }
-}
-
-function makeProfileForm() {
+function setEditProfileFormListeners() {
 
   function handleProfileFormSubmit (evt) {
     evt.preventDefault();
     profileName.textContent = profileInputName.value;
     profileText.textContent = profileInputOccupation.value;
-    closePopup(popupProfile, ProfileForm);
+    closePopup(popupProfile);
   }
 
   editButton.addEventListener('click', () => {
-    ProfileForm.enableValidation();
     profileInputName.value = profileName.textContent;
     profileInputOccupation.value = profileText.textContent;
-    openPopup(popupProfile, ProfileForm);
+    openPopup(popupProfile);
+    validatorEditProfile.disableSubmitButton();
   });
 
   exitProfileButton.addEventListener('click', () => {
-    closePopup(popupProfile, ProfileForm);
+    closePopup(popupProfile);
   });
 
   popupProfile.addEventListener('submit', handleProfileFormSubmit);
 }
 
-function makeAddCardsForm() {
+function setAddCardFormListeners() {
 
   function handleAddCardsFormSubmit(evt) {
     evt.preventDefault();
@@ -76,18 +39,17 @@ function makeAddCardsForm() {
       link: cardsInputLink.value,
       alt: cardsInputTitle.value
     };
-    const card = new Card(data, '#elements');
-    container.prepend(card.generateCard());
+    container.prepend(createCard(data, '#elements').generateCard());
     popupForm.reset();
-    closePopup(popupCards, AddCardsForm);
+    closePopup(popupCards);
   }
 
   addButton.addEventListener('click', () => {
-    AddCardsForm.enableValidation();
-    openPopup(popupCards, AddCardsForm);
+    openPopup(popupCards);
+    validatorAddCard.disableSubmitButton();
   });
   exitAddCardsFormButton.addEventListener('click', () => {
-    closePopup(popupCards, AddCardsForm);
+    closePopup(popupCards);
   });
   popupCards.addEventListener('submit', handleAddCardsFormSubmit);
 
@@ -98,12 +60,13 @@ exitZoomButton.addEventListener('click', () => {
 });
 
 initialCards.forEach((item) => {
-  const card = new Card(item, '#elements');
-  container.prepend(card.generateCard());
+  container.prepend(createCard(item, '#elements').generateCard());
 });
 
-makeProfileForm();
-const ProfileForm = new FormValidator(validationConfig, popupProfile);
-makeAddCardsForm();
-const AddCardsForm = new FormValidator(validationConfig, popupCards);
+setEditProfileFormListeners();
+const validatorEditProfile = new FormValidator(validationConfig, popupProfile);
+validatorEditProfile.enableValidation();
+setAddCardFormListeners();
+const validatorAddCard = new FormValidator(validationConfig, popupCards);
+validatorAddCard.enableValidation();
 
