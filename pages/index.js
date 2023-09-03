@@ -1,11 +1,19 @@
-import { Card } from "./Card.js";
-import { FormValidator } from "./FormValidator.js";
-import { openPopup, closePopup } from "./utils/utils.js";
+import Section from "../components/Section.js";
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { openPopup, closePopup } from "../utils/utils.js";
 
 const createCard = function(data, template) {
   const card = new Card(data, template);
   return card;
 }
+
+const CardList = new Section(
+  { items: initialCards, renderer: (item) => {
+    const card = new Card(item, '#elements').generateCard();
+    CardList.addItem(card);
+  }
+}, container);
 
 function setEditProfileFormListeners() {
 
@@ -34,12 +42,23 @@ function setAddCardFormListeners() {
 
   function handleAddCardsFormSubmit(evt) {
     evt.preventDefault();
-    const data = {
+    const data = [{
       name: cardsInputTitle.value,
       link: cardsInputLink.value,
       alt: cardsInputTitle.value
-    };
-    container.prepend(createCard(data, '#elements').generateCard());
+    }];
+
+    CardList.renderedItems = data;
+    CardList.renderItems();
+
+    /*
+    const userCard = new Section({ items: data, renderer: (item) => {  // изменить повтор кода
+      const card = new Card(item, '#elements').generateCard();
+      userCard.addItem(card);
+    }
+  }, container);
+    userCard.renderItems();*/
+    //container.prepend(createCard(data, '#elements').generateCard());
     popupForm.reset();
     closePopup(popupCards);
   }
@@ -59,9 +78,11 @@ exitZoomButton.addEventListener('click', () => {
   closePopup(popupZoomCard);
 });
 
-initialCards.forEach((item) => {
+/*initialCards.forEach((item) => {
   container.prepend(createCard(item, '#elements').generateCard());
-});
+});*/
+
+CardList.renderItems();
 
 setEditProfileFormListeners();
 const validatorEditProfile = new FormValidator(validationConfig, popupProfile);
