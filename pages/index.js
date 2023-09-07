@@ -1,12 +1,13 @@
 import Section from "../components/Section.js";
+import Popup from "../components/Popup.js";
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { openPopup, closePopup } from "../utils/utils.js";
 
-const createCard = function(data, template) {
+/*const createCard = function(data, template) {
   const card = new Card(data, template);
   return card;
-}
+}*/
 
 const CardList = new Section(
   { items: initialCards, renderer: (item) => {
@@ -15,25 +16,30 @@ const CardList = new Section(
   }
 }, container);
 
+const popupProfileTest = new Popup(popupProfile);
+
+
 function setEditProfileFormListeners() {
 
   function handleProfileFormSubmit (evt) {
     evt.preventDefault();
     profileName.textContent = profileInputName.value;
     profileText.textContent = profileInputOccupation.value;
-    closePopup(popupProfile);
+    popupProfileTest.close()
+    //closePopup(popupProfile);
   }
 
   editButton.addEventListener('click', () => {
     profileInputName.value = profileName.textContent;
     profileInputOccupation.value = profileText.textContent;
-    openPopup(popupProfile);
+    popupProfileTest.open();
+    //openPopup(popupProfile);
     validatorEditProfile.disableSubmitButton();
   });
 
-  exitProfileButton.addEventListener('click', () => {
+  /*exitProfileButton.addEventListener('click', () => {
     closePopup(popupProfile);
-  });
+  });*/
 
   popupProfile.addEventListener('submit', handleProfileFormSubmit);
 }

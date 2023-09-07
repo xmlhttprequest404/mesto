@@ -12,11 +12,7 @@ export class FormValidator {
   _showInputError(inputElement) {
     const errorElement = this._currentForm.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._error);
-    if (inputElement.validationMessage.length > 112) { /* Да, спасибо), я видел в чеклисте прошлой ПР-6 указано,
-                                                          что окно должно меняться только если текст ошибки 3 строки и боллее.
-                                                          Однако, если высота попапа не меняется при генерации в 2 строки,
-                                                          то текст ошибки практически сливается с соседним инпутом,
-                                                          Поэтому я подумал, что эстечинее будет добавить отступ*/
+    if (inputElement.validationMessage.length > 112) {
       inputElement.style.marginBottom = '10px';
     }
     errorElement.textContent = inputElement.validationMessage;
