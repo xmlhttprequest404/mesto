@@ -7,18 +7,18 @@ const popupText = popupZoomCard.querySelector('.popup__text');
 const exitZoomButton = popupZoomCard.querySelector('.popup__exit');
 
 // makeAddCardsForm
-const popupCards = document.querySelector('.popup_cards');
-const exitAddCardsFormButton = popupCards.querySelector('.popup__exit');
-const cardsInputTitle = popupCards.querySelector('.popup__input_title');
-const cardsInputLink = popupCards.querySelector('.popup__input_url-image');
+const popupCardsElement = document.querySelector('.popup_cards');
+const exitAddCardsFormButton = popupCardsElement.querySelector('.popup__exit');
+const cardsInputTitle = popupCardsElement.querySelector('.popup__input_title');
+const cardsInputLink = popupCardsElement.querySelector('.popup__input_url-image');
 const addButton = document.querySelector('.profile__add-button');
-const popupForm = popupCards.querySelector('.popup__form');
+const popupForm = popupCardsElement.querySelector('.popup__form');
 
 // makeProfileForm
 const profileName = document.querySelector('.profile__name');
 const profileText = document.querySelector('.profile__text');
 const editButton = document.querySelector('.profile__edit-button');
-const popupProfile = document.querySelector('.popup_profile');
-const exitProfileButton = popupProfile.querySelector('.popup__exit');
-const profileInputName = popupProfile.querySelector('.popup__input_name');
-const profileInputOccupation = popupProfile.querySelector('.popup__input_occupation');
+const popupProfileElement = document.querySelector('.popup_profile');
+const exitProfileButton = popupProfileElement.querySelector('.popup__exit');
+const profileInputName = popupProfileElement.querySelector('.popup__input_name');
+const profileInputOccupation = popupProfileElement.querySelector('.popup__input_occupation');

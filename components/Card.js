@@ -1,11 +1,10 @@
-import { openPopup } from '../utils/utils.js';
-
-export class Card {
-  constructor (data, templateSelector) {
+export default class Card {
+  constructor (data, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._alt = data.alt;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -22,13 +21,6 @@ export class Card {
     this._card.remove();
   }
 
-  _handleZoomOpen(evt) {
-    popupImage.src = evt.target.src;
-    popupText.textContent = this._text.textContent;
-    popupImage.alt = evt.target.alt;
-    openPopup(popupZoomCard);
-  }
-
   _handleToggleLike(evt) {
     evt.target.classList.toggle('element__like_theme_dark');
   }
@@ -43,7 +35,7 @@ export class Card {
     });
 
     cardImage.addEventListener('click', (evt) => {
-      this._handleZoomOpen(evt);
+      this._handleCardClick(evt);
     });
 
     like.addEventListener('click', (evt) => {
