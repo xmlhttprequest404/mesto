@@ -1,4 +1,10 @@
-const validationConfig = {
+import karachaevsk from '../images/karachaevsk.png';
+import elbrus from '../images/elbrus-mountin.png';
+import dombay from '../images/dombay.png';
+import karachaevsk_1 from '../images/karachaevsk1.png';
+import altay from '../images/altay.png';
+
+export const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitSelector: '.popup__submit',
@@ -7,21 +13,20 @@ const validationConfig = {
   errorVisibleClass: 'popup__error_visible'
 };
 
-// cards
-const initialCards = [
+export const initialCards = [
   {
     name: 'Карачаевск',
-    link: './images/karachaevsk.png',
+    link: karachaevsk,
     alt: 'Архитектурное старинное здание, похожее на церковь на фоне поля, леса и гор'
   },
   {
     name: 'Гора Эльбрус',
-    link: './images/elbrus-mountin.png',
+    link: elbrus,
     alt: 'Равнина с небольшими холмами и вдалеке гора Эльбрус'
   },
   {
     name: 'Домбай',
-    link: './images/dombay.png',
+    link: dombay,
     alt: 'Хвойный лес в горах, на заднем плане лысая заснеженна гора'
   },
   {
@@ -56,12 +61,12 @@ const initialCards = [
   },
   {
     name: 'Карачаево-Черкессия',
-    link: './images/karachaevsk1.png',
+    link: karachaevsk_1,
     alt: 'Архитектурное старинное здание, похожее на церковь на фоне поля, леса и гор'
   },
   {
     name: 'Горный Алтай',
-    link: './images/altay.png',
+    link: altay,
     alt: 'Горный лес в тумане'
   }
 ];

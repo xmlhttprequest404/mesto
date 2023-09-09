@@ -3,15 +3,14 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
-    <link type="image/png" sizes="32x32" rel="icon" href="images/icons8-walter-white-32.png">
-    <script src="./utils/constants.js" defer></script>
-    <script src="./utils/elements.js" defer></script>
+    <link type="image/png" sizes="32x32" rel="icon" href="<%=require('./images/icons8-walter-white-32.png')%>">
+    <!--<script src="./utils/constants.js" defer></script>
+    <script src="./utils/elements.js" defer></script>-->
     <title>Mesto</title>
   </head>
   <body class="page">
     <header class="header">
-      <img src="./images/logo.svg" class="logo logo_place_header" alt="Логотип странички с надписью Mesto Russia">
+      <img src="<%=require('./images/logo.svg')%>" class="logo logo_place_header" alt="Логотип странички с надписью Mesto Russia">
     </header>
     <main class="content">
       <section class="profile">
@@ -83,8 +82,8 @@
         </div>
       </article>
     </template>
-    <script type="module" src="./pages/index.js"></script>
+    <!--<script type="module" src="./pages/index.js"></script>
     <script type="module" src="./components/Card.js"></script>
-    <script type="module" src="./components/FormValidator.js"></script>
+    <script type="module" src="./components/FormValidator.js"></script>-->
   </body>
 </html>

@@ -1,3 +1,5 @@
+import { profileName, profileText } from "../utils/elements";
+
 export default class UserInfo {
   constructor({ userName, userAbout }) {
     this._userName = userName;
