@@ -2,8 +2,7 @@ const container = document.querySelector('.elements');
 
 // createCard
 const popupZoomCard = document.querySelector('.popup_element');
-const popupImage = popupZoomCard.querySelector('.popup__image');
-const popupText = popupZoomCard.querySelector('.popup__text');
+
 // makeAddCardsForm
 const popupCardsElement = document.querySelector('.popup_cards');
 const addButton = document.querySelector('.profile__add-button');
@@ -20,8 +19,6 @@ const profileInputOccupation = popupProfileElement.querySelector('.popup__input_
 export {
   container,
   popupZoomCard,
-  popupImage,
-  popupText,
   popupCardsElement,
   addButton,
   profileName,

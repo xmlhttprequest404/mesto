@@ -21,38 +21,38 @@ import FormValidator from "../components/FormValidator.js";
 
 
 
-const CardList = new Section(
+const cardList = new Section(
   { items: initialCards, renderer: (item) => {
-    const card = new Card(item, '#elements', (evt) => {
+    const card = new Card(item, '#elements', () => {
       const popupImg = new PopupWithImage(popupZoomCard);
-      popupImg.open(evt);
+      popupImg.open(item);
       popupImg.setEventListeners();
     }).generateCard();
-    CardList.addItem(card);
+    cardList.addItem(card);
   }
 }, container);
 
 const userProfile = new UserInfo({
-  userName: profileName.textContent,
-  userAbout: profileText.textContent
+  userName: profileName,
+  userAbout: profileText
 });
 
-const popupProfile = new PopupWithForm(popupProfileElement, (inputList) => {
+const popupProfile = new PopupWithForm(popupProfileElement, (inputValues) => {
   userProfile.setUserInfo({
-    name: inputList[0].value,
-    about: inputList[1].value
+    name: inputValues.popupName,
+    about: inputValues.popupOccupation
   });
 });
 
-const popupCards = new PopupWithForm(popupCardsElement, (inputList) => {
+const popupCards = new PopupWithForm(popupCardsElement, (inputValues) => {
   const data = [{
-    name: inputList[0].value,
-    link: inputList[1].value,
-    alt: inputList[0].value
+    name: inputValues.popupTitle,
+    link: inputValues.popupUrlImage,
+    alt: inputValues.popupTitle
   }];
 
-  CardList.renderedItems = data;
-  CardList.renderItems();
+  cardList.renderedItems = data;
+  cardList.renderItems();
 });
 
 function setIndexEventListeners() {
@@ -61,6 +61,7 @@ function setIndexEventListeners() {
     profileInputOccupation.value = userProfile.getUserInfo().about;
     popupProfile.open();
     validatorEditProfile.disableSubmitButton();
+    validatorEditProfile.resetValidation();
   });
 
   addButton.addEventListener('click', () => {
@@ -69,7 +70,7 @@ function setIndexEventListeners() {
   });
 }
 
-CardList.renderItems();
+cardList.renderItems();
 popupProfile.setEventListeners();
 popupCards.setEventListeners();
 setIndexEventListeners();

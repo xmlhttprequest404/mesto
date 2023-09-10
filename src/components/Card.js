@@ -35,7 +35,7 @@ export default class Card {
     });
 
     cardImage.addEventListener('click', (evt) => {
-      this._handleCardClick(evt);
+      this._handleCardClick();
     });
 
     like.addEventListener('click', (evt) => {
