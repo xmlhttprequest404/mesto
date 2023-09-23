@@ -31,21 +31,53 @@ const apiOptions = {
 
 const api = new Api(apiOptions.url, apiOptions.headers);
 
-const createCard = function (item) {
-  const card = new Card(item, '#elements', () => {
-    const popupImg = new PopupWithImage(popupZoomCard);
-    popupImg.open(item);
-    popupImg.setEventListeners();
-  }).generateCard();
-  return card;
+
+const handleCardClick = function (cardApi) {
+  const popupImg = new PopupWithImage(popupZoomCard);
+  popupImg.open(cardApi);
+  popupImg.setEventListeners();
+}
+
+
+
+const createCard = function (cardApi) {
+      const card = new Card(cardApi, api.getUserInfoApi() , '#elements', () => handleCardClick(cardApi),
+      (evt, cardId, likesEl, mePromise) => {
+
+        mePromise.then(meData => {
+          if (cardApi.likes.some(likesApi => likesApi._id === meData._id)) {
+            api.decreaseLike(cardId)
+            .then (res => {
+              console.log(res.likes.length);
+              likesEl.textContent = res.likes.length;
+              console.log(res);
+            });
+            evt.target.classList.remove('element__like_theme_dark');
+          } else {
+            api.increaseLike(cardId)
+            .then (res => {
+              likesEl.textContent = res.likes.length;
+              console.log(res);
+            });
+            evt.target.classList.add('element__like_theme_dark');
+          }
+        })
+      }, (like, meData) => {
+        if (cardApi.likes.some(likesApi => likesApi._id === meData._id)) {
+          like.classList.add('element__like_theme_dark');
+        } else {
+          like.classList.remove('element__like_theme_dark');
+        }
+      }).generateCard();
+    return card;
 }
 
 
 api.getInitialCards().
 then(res => {
   const cardList = new Section(
-    { cardData: res, renderer: (item) => {
-      cardList.addItemAppend(createCard(item));
+    { cardData: res, renderer: (cardApi) => {
+      cardList.addItemAppend(createCard(cardApi));
     }
   }, container);
   cardList.renderItems();
@@ -61,7 +93,7 @@ const userProfile = new UserInfo(
 api.getUserInfoApi()
   .then(res => {
     userProfile.setUserInfo(res);
-  })
+  });
 
 const popupProfile = new PopupWithForm(popupProfileElement, (inputValues) => {
   api.sendUserInfoApi({

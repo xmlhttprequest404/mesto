@@ -9,7 +9,6 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-
       .then (res => {
         if (res.ok) {
           return res.json();
@@ -42,7 +41,7 @@ export default class Api {
   }
 
   getInitialCards () {
-    return fetch(`${this._url}/cards`, {
+    return fetch(`${this._url}cards`, {
       method: 'GET',
       headers: this._headers
     })
@@ -58,7 +57,7 @@ export default class Api {
   }
 
   sendCard (userData) {
-    return fetch(`${this._url}/cards`, {
+    return fetch(`${this._url}cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(userData)
@@ -72,6 +71,30 @@ export default class Api {
       .catch (error => {
         console.log(error);
       });
+  }
+
+  increaseLike (id) {
+    return fetch(`${this._url}cards/${id}/likes`, {
+      method: 'PUT',
+      headers: this._headers
+    })
+      .then (res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+  }
+
+  decreaseLike (id) {
+    return fetch(`${this._url}cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+      .then (res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
   }
 }
 
