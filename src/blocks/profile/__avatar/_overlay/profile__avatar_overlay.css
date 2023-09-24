@@ -1,0 +1,16 @@
+.profile__avatar_overlay {
+  position: absolute;
+  width: 126px;
+  height: 126px;
+  z-index: 2;
+  top: -2px;
+  left: -2px;
+  background: url(../../../../images/pencil.svg) 50%/20% no-repeat rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.15s linear;
+}
+
+.profile__avatar_overlay:hover {
+  opacity: 1;
+  cursor: pointer;
+}

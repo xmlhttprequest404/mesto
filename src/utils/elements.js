@@ -15,6 +15,12 @@ const popupProfileElement = document.querySelector('.popup_profile');
 const profileInputName = popupProfileElement.querySelector('.popup__input_name');
 const profileInputOccupation = popupProfileElement.querySelector('.popup__input_occupation');
 
+const popupDeleteElement = document.querySelector('.popup_delete');
+
+const popupAvatarElement = document.querySelector('.popup_avatar');
+const avatarButton = document.querySelector('.profile__avatar_button');
+const profileAvatar = document.querySelector('.profile__avatar');
+
 
 export {
   container,
@@ -26,5 +32,9 @@ export {
   editButton,
   popupProfileElement,
   profileInputName,
-  profileInputOccupation
+  profileInputOccupation,
+  popupDeleteElement,
+  popupAvatarElement,
+  avatarButton,
+  profileAvatar
 };
