@@ -18,7 +18,7 @@ const profileInputOccupation = popupProfileElement.querySelector('.popup__input_
 const popupDeleteElement = document.querySelector('.popup_delete');
 
 const popupAvatarElement = document.querySelector('.popup_avatar');
-const avatarButton = document.querySelector('.profile__avatar_button');
+const avatarButton = document.querySelector('.profile__button-img');
 const profileAvatar = document.querySelector('.profile__avatar');
 
 
