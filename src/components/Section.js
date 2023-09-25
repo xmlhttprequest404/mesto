@@ -1,9 +1,8 @@
 export default class Section {
-  constructor( { cardData, renderer }, containerSelector, mePromise ) {
-    this.renderedData = cardData;
-    this._renderer = renderer;
+  constructor( { renderer }, containerSelector ) {
+    //this.renderedData = cardData;
+    this.renderer = renderer;
     this._container = containerSelector;
-    this._mePromise = mePromise;
   }
 
   addItemPrepend(element) {
@@ -15,16 +14,17 @@ export default class Section {
   }
 
   renderItems () {
-    this._mePromise.then(meData => {
-      this.renderedData.forEach(item => {
-        this._renderer(item, meData._id);
-      });
-    })
+    // this._mePromise.then(meData => {
+    //   this.renderedData.forEach(item => {
+    //     this._renderer(item, meData._id);
+    //   });
+    // })
+    this.renderedData.forEach(item => {
+      this._renderer(item);
+    });
   }
 
-  renderItem () {
-    this._mePromise.then(meData => {
-      this._renderer(this.renderedData, meData._id);
-    })
+   renderItem () {
+    this.renderer(this.renderedData);
   }
 }

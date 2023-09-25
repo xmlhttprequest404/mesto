@@ -1,5 +1,5 @@
 export default class Card {
-  constructor (cardDataApi, meId, templateSelector, popupDelete, handleCardClick, handleToggleLike, handleInitialLikes) {
+  constructor (cardDataApi, meId, templateSelector, handleCardClick, handleToggleLike, handleInitialLikes, popupHandleDelete) {
     this._name = cardDataApi.name;
     this._link = cardDataApi.link;
     this._alt = cardDataApi.name;
@@ -7,7 +7,7 @@ export default class Card {
     this._id = cardDataApi._id;
     this._meId = meId;
     this._owner = cardDataApi.owner._id;
-    this._popupDelete = popupDelete;
+    this._popupHandleDelete = popupHandleDelete;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleToggleLike = handleToggleLike;
@@ -15,18 +15,11 @@ export default class Card {
   }
 
   _getTemplate() {
-    const cardElement = document
+    return document
     .querySelector(this._templateSelector)
     .content
     .querySelector('.element')
     .cloneNode(true);
-
-    return cardElement;
-  }
-
-  _handleRemoveCard() {
-    this._popupDelete.getCardId(this._id);
-    this._popupDelete.getElemForDel(this._card);
   }
 
   _setEventListeners() {
@@ -36,8 +29,7 @@ export default class Card {
 
     if (trashButton) {
       trashButton.addEventListener('click', (evt) => {
-        this._popupDelete.open();
-        this._handleRemoveCard();
+        this._popupHandleDelete(this._id, this._card);
       });
     }
 

@@ -12,9 +12,6 @@ export default class Api {
         }
         Promise.reject(`Ошибка: ${response.status}`);
       })
-      .catch (error => {
-        console.log(error);
-      });
   }
 
   getUserInfoApi () {

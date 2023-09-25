@@ -7,11 +7,10 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    const userData = {
+    return {
       name: this._profileName.textContent,
       about: this._profileText.textContent
     }
-    return userData;
   }
 
   setUserInfo(userData) {

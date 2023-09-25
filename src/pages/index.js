@@ -47,14 +47,20 @@ const popupAvatar = new PopupWithForm(popupAvatarElement, (inputValues) => {
   .finally (() => {
     popupAvatar.finalyHandle();
   })
+}, () => {
+    avatarButton.addEventListener('click', () => {
+    popupAvatar.open();
+    validatorPopupAvatar.disableButton();
+  });
 });
 
 const popupDelete = new PopupForDelete(popupDeleteElement, (id) => {
   api.deleteCard(id)
   .then (res => {
-    if (res.ok) {
-      console.log(res);
-    }
+    console.log(res);
+  })
+  .catch(error => {
+    console.log(error);
   })
 });
 
@@ -66,7 +72,7 @@ const handleCardClick = function (cardApi) {
 }
 
 const createCard = function (cardDataApi, meId) {
-      const card = new Card(cardDataApi, meId, '#elements', popupDelete, () => handleCardClick(cardDataApi),
+      const card = new Card(cardDataApi, meId, '#elements', () => handleCardClick(cardDataApi),
       (evt, cardId, likesCounterEl) => {
 
         if (cardDataApi.likes.some(like => like._id === meId)) {
@@ -74,13 +80,19 @@ const createCard = function (cardDataApi, meId) {
             .then (res => {
               likesCounterEl.textContent = res.likes.length;
               cardDataApi = res;
+            })
+            .catch(error => {
+              console.log(error);
             });
             evt.target.classList.remove('element__like_theme_dark');
           } else {
             api.increaseLike(cardId)
-            .then ((res) => {
+            .then (res => {
               likesCounterEl.textContent = res.likes.length;
               cardDataApi = res;
+            })
+            .catch (error => {
+              console.log(error);
             });
             evt.target.classList.add('element__like_theme_dark');
           }
@@ -93,21 +105,18 @@ const createCard = function (cardDataApi, meId) {
         } else {
           likeEl.classList.remove('element__like_theme_dark');
         }
-      }).generateCard();
+      },
+
+      (id, card) => {
+        popupDelete.open();
+        popupDelete.setEventListeners(id, card);
+      })
+      .generateCard();
 
     return card;
 }
 
 
-api.getInitialCards().
-then(res => {
-  const cardList = new Section(
-    { cardData: res, renderer: (cardApi, meId) => {
-      cardList.addItemAppend(createCard(cardApi, meId));
-    }
-  }, container, api.getUserInfoApi());
-  cardList.renderItems();
-});
 
 const userProfile = new UserInfo(
   {
@@ -118,8 +127,11 @@ const userProfile = new UserInfo(
 
 
 api.getUserInfoApi()
-  .then(res => {
+  .then (res => {
     userProfile.setUserInfo(res);
+  })
+  .catch (error => {
+    console.log(error);
   });
 
 const popupProfile = new PopupWithForm(popupProfileElement, (inputValues) => {
@@ -138,58 +150,95 @@ const popupProfile = new PopupWithForm(popupProfileElement, (inputValues) => {
     popupProfile.finalyHandle();
   });
 
-});
-
-
-const popupCards = new PopupWithForm(popupCardsElement, (inputValues) => {
-  popupCards.renderLoading(true);
-  const data = {
-    name: inputValues.popupTitle,
-    link: inputValues.popupUrlImage,
-  };
-  api.sendCard(data)
-  .then (res => {
-    const card = new Section({ cardData: res, renderer: (cardApi, meId) => {
-      card.addItemPrepend(createCard(cardApi, meId));
-    }
-  }, container, api.getUserInfoApi());
-  card.cardData = res;
-  card.renderItem();
-  })
-  .catch (error => {
-    console.log(error);
-  })
-  .finally (() => {
-    popupCards.finalyHandle();
-  });
-});
-
-
-function setIndexEventListeners() {
-  editButton.addEventListener('click', () => {
+}, () => {
+    editButton.addEventListener('click', () => {
     profileInputName.value = userProfile.getUserInfo().name;
     profileInputOccupation.value = userProfile.getUserInfo().about;
     popupProfile.open();
-    validatorEditProfile.disableSubmitButton();
+    validatorEditProfile.disableButton();
     validatorEditProfile.resetValidation();
   });
+});
 
-  addButton.addEventListener('click', () => {
-    popupCards.open();
-    validatorAddCard.disableSubmitButton();
-  });
 
-  avatarButton.addEventListener('click', () => {
-    popupAvatar.open();
 
-  });
-}
+api.getInitialCards().
+then (cards => {
+  const cardList = new Section(
+    { renderer: () => {
+      api.getUserInfoApi()
+      .then (me => {
+        cards.forEach(item => {
+          cardList.addItemAppend(createCard(item, me._id));
+        });
+      })
+    }
+  }, container);
+  cardList.renderItem();
+  return cardList;
+})
+.then (cardList => {
+   new PopupWithForm(popupCardsElement, (inputValues, popup) => {
+    popup.renderLoading(true);
+    api.sendCard(inputValues)
+    .then (card => {
+      cardList.renderer = () => {
+        api.getUserInfoApi()
+        .then (me => {
+          cardList.addItemPrepend(createCard(card, me._id));
+        });
+      }
+      cardList.renderItem();
+    })
+    .catch (error => {
+      console.log(error);
+    })
+    .finally ( () => {
+      popup.finalyHandle();
+    });
+  }, (popup) => {
+      addButton.addEventListener('click', () => {
+      popup.open();
+      validatorAddCard.disableButton();
+    })
+  }).setEventListeners();
+})
+.catch (error => {
+  console.log(error);
+});
+
+
+// const popupCards = new PopupWithForm(popupCardsElement, (inputValues) => {
+//   popupCards.renderLoading(true);
+//   api.sendCard(inputValues)
+//   .then (res => {
+//     const card = new Section({ renderer: () => {
+//       api.getUserInfoApi()
+//       .then (me => {
+//         card.addItemPrepend(createCard(res, me._id));
+//       })
+//     }
+//   }, container);
+//   card.renderItem();
+//   })
+//   .catch (error => {
+//     console.log(error);
+//   })
+//   .finally (() => {
+//     popupCards.finalyHandle();
+//   });
+// }, () => {
+//     addButton.addEventListener('click', () => {
+//     popupCards.open();
+//     validatorAddCard.disableButton();
+//   });
+// });
+
 
 popupProfile.setEventListeners();
-popupCards.setEventListeners();
+//popupCards.setEventListeners();
 popupDelete.setEventListeners();
 popupAvatar.setEventListeners();
-setIndexEventListeners();
 
 
 const validatorEditProfile = new FormValidator(validationConfig, popupProfileElement);
