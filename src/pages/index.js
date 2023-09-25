@@ -40,6 +40,7 @@ const popupAvatar = new PopupWithForm(popupAvatarElement, (inputValues) => {
   api.loadNewAvatar({ avatar: inputValues.avatarUrlImage })
   .then (res => {
     profileAvatar.style.background = `url(${res.avatar}) 50% center/cover no-repeat`;
+    popupAvatar.close();
   })
   .catch (error => {
     console.log(error);
@@ -109,13 +110,13 @@ const createCard = function (cardDataApi, meId) {
 
       (id, card) => {
         popupDelete.open();
+        console.log(card);
         popupDelete.setEventListeners(id, card);
       })
       .generateCard();
 
     return card;
 }
-
 
 
 const userProfile = new UserInfo(
@@ -134,14 +135,13 @@ api.getUserInfoApi()
     console.log(error);
   });
 
+
 const popupProfile = new PopupWithForm(popupProfileElement, (inputValues) => {
   popupProfile.renderLoading(true);
-  api.sendUserInfoApi({
-    name: inputValues.popupName,
-    about: inputValues.popupOccupation
-  })
+  api.sendUserInfoApi(inputValues)
   .then (res => {
     userProfile.setUserInfo(res);
+    popupProfile.close();
   })
   .catch (error => {
     console.log(error);
@@ -159,7 +159,6 @@ const popupProfile = new PopupWithForm(popupProfileElement, (inputValues) => {
     validatorEditProfile.resetValidation();
   });
 });
-
 
 
 api.getInitialCards().
@@ -186,6 +185,10 @@ then (cards => {
         api.getUserInfoApi()
         .then (me => {
           cardList.addItemPrepend(createCard(card, me._id));
+          popup.close();
+        })
+        .catch (error => {
+          console.log(error)
         });
       }
       cardList.renderItem();
@@ -207,39 +210,9 @@ then (cards => {
   console.log(error);
 });
 
-
-// const popupCards = new PopupWithForm(popupCardsElement, (inputValues) => {
-//   popupCards.renderLoading(true);
-//   api.sendCard(inputValues)
-//   .then (res => {
-//     const card = new Section({ renderer: () => {
-//       api.getUserInfoApi()
-//       .then (me => {
-//         card.addItemPrepend(createCard(res, me._id));
-//       })
-//     }
-//   }, container);
-//   card.renderItem();
-//   })
-//   .catch (error => {
-//     console.log(error);
-//   })
-//   .finally (() => {
-//     popupCards.finalyHandle();
-//   });
-// }, () => {
-//     addButton.addEventListener('click', () => {
-//     popupCards.open();
-//     validatorAddCard.disableButton();
-//   });
-// });
-
-
 popupProfile.setEventListeners();
-//popupCards.setEventListeners();
 popupDelete.setEventListeners();
 popupAvatar.setEventListeners();
-
 
 const validatorEditProfile = new FormValidator(validationConfig, popupProfileElement);
 validatorEditProfile.enableValidation();

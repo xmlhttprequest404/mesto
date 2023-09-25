@@ -28,7 +28,7 @@ export default class Card {
     const like = this._card.querySelector('.element__like');
 
     if (trashButton) {
-      trashButton.addEventListener('click', (evt) => {
+      trashButton.addEventListener('click', () => {
         this._popupHandleDelete(this._id, this._card);
       });
     }

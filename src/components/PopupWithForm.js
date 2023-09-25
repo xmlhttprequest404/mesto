@@ -13,7 +13,6 @@ export default class PopupWithForm extends Popup{
 
   finalyHandle () {
     this.renderLoading(false);
-    this.close();
     this._form.reset();
   }
 
@@ -32,8 +31,6 @@ export default class PopupWithForm extends Popup{
     });
     return this._formValues;
   }
-
-
 
   setEventListeners() {
     super.setEventListeners();
