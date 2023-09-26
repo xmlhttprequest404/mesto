@@ -1,5 +1,6 @@
 export default class Card {
   constructor (cardDataApi, meId, templateSelector, handleCardClick, handleToggleLike, handleInitialLikes, popupHandleDelete) {
+    this._cardDataApi = cardDataApi;
     this._name = cardDataApi.name;
     this._link = cardDataApi.link;
     this._alt = cardDataApi.name;
@@ -29,7 +30,7 @@ export default class Card {
 
     if (trashButton) {
       trashButton.addEventListener('click', () => {
-        this._popupHandleDelete(this._id, this._card);
+        this._popupHandleDelete(this._id, this._cardDataApi, this._card);
       });
     }
 

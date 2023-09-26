@@ -12,7 +12,9 @@ export default class Section {
     this._container.append(element);
   }
 
-   renderItem () {
-    this.renderer(this.renderedData);
+   renderItems (cards) {
+    cards.forEach(card => {
+      this.renderer(card);
+    });
   }
 }
