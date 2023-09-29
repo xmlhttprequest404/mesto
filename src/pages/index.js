@@ -58,7 +58,7 @@ const popupAvatar = new PopupWithForm(popupAvatarElement, (inputValues) => {
   popupAvatar.renderLoading(true);
   api.loadNewAvatar({ avatar: inputValues.avatarUrlImage })
   .then (res => {
-    profileAvatar.style.background = `url(${res.avatar}) 50% center/cover no-repeat`;
+    userProfile.setUserInfo(res);
     popupAvatar.close();
   })
   .catch (error => {
@@ -76,25 +76,40 @@ const popupAvatar = new PopupWithForm(popupAvatarElement, (inputValues) => {
 
 
 const popupDelete = new PopupForDelete(popupDeleteElement, (id, cardDataApi, card) => {
-  api.getInitialCards()
-    .then (cards => {
-      if(cards.some(item => item._id === id)){
-        api.deleteCard(id)
-          .then (res => {
-            console.log(res);
-            card.remove();
-          })
-          .catch(error => {
-            console.log(error);
-          })
-          } else {
-            cardDataApi = cards;
-            Promise.resolve(console.log('refreshing data..'));
-          }
-    })
-    .catch (error => {
-      console.log(error);
-    });
+  // при удалении карточки повторно, не обновляя страницы, отправляется запрос со старыми id и вместе с ним новый, т.е. если удаляю
+  // 3 карточки, во-первых скрипт отправляет 3 запроса, два из которых со старыми данными (на которых всплывает ошибка: от сервера о
+  // том, что можно удалять только свои карточки, и соответственно в консоли, о том что ответ пришел пустой). Я искал где все-таки
+  // значение id может накапливаться.. но не нашел.. а заметил, что данные старые и просто не успевают обновляться..
+  // поэтому подумал обновлять данные здесь
+  // api.getInitialCards()
+  //   .then (cards => {
+  //     if(cards.some(item => item._id === id)){
+  //       api.deleteCard(id)
+  //         .then (res => {
+  //           console.log(res);
+  //           card.remove();
+  //         })
+  //         .catch(error => {
+  //           console.log(error);
+  //         })
+  //         } else {
+  //           cardDataApi = cards;
+  //           Promise.resolve(console.log('refreshing data..'));
+  //         }
+  //   })
+  //   .catch (error => {
+  //     console.log(error);
+  //   });
+
+    api.deleteCard(id)
+      .then (res => {
+        console.log(res);
+        card.remove();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
 });
 
 
@@ -113,21 +128,23 @@ const createCard = function (cardDataApi) {
             .then (res => {
               likesCounterEl.textContent = res.likes.length;
               cardDataApi = res;
+              evt.target.classList.remove('element__like_theme_dark');
             })
             .catch(error => {
               console.log(error);
             });
-            evt.target.classList.remove('element__like_theme_dark');
+
           } else {
             api.increaseLike(cardId)
             .then (res => {
               likesCounterEl.textContent = res.likes.length;
               cardDataApi = res;
+              evt.target.classList.add('element__like_theme_dark');
             })
             .catch (error => {
               console.log(error);
             });
-            evt.target.classList.add('element__like_theme_dark');
+
           }
 
       },
@@ -141,7 +158,6 @@ const createCard = function (cardDataApi) {
       },
 
       (id, cardDataApi, card) => {
-        debugger;
         popupDelete.open();
         popupDelete.setEventListeners(id, cardDataApi, card);
       })
@@ -200,7 +216,7 @@ const popupCards = new PopupWithForm(popupCardsElement, (inputValues, popup) => 
         cardList.addItemPrepend(createCard(card, user._id));
         popup.close();
       }
-    cardList.renderItems([card]);
+      cardList.renderer();
     })
     .catch (error => {
       console.log(error);
