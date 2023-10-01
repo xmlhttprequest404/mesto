@@ -70,3 +70,4 @@ setAddCardFormListeners();
 const validatorAddCard = new FormValidator(validationConfig, popupCards);
 validatorAddCard.enableValidation();
 
+
