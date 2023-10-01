@@ -19,7 +19,6 @@ const popupDeleteElement = document.querySelector('.popup_delete');
 
 const popupAvatarElement = document.querySelector('.popup_avatar');
 const avatarButton = document.querySelector('.profile__button-img');
-const profileAvatar = document.querySelector('.profile__avatar');
 
 
 export {
@@ -36,5 +35,4 @@ export {
   popupDeleteElement,
   popupAvatarElement,
   avatarButton,
-  profileAvatar
 };

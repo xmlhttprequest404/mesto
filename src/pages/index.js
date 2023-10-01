@@ -13,8 +13,7 @@ import {
   profileInputOccupation,
   popupDeleteElement,
   popupAvatarElement,
-  avatarButton,
-  profileAvatar
+  avatarButton
 } from '../utils/elements.js';
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -113,10 +112,11 @@ const popupDelete = new PopupForDelete(popupDeleteElement, (id, cardDataApi, car
 });
 
 
+const popupImg = new PopupWithImage(popupZoomCard);
+popupImg.setEventListeners();
+
 const handleCardClick = function (cardApi) {
-  const popupImg = new PopupWithImage(popupZoomCard);
   popupImg.open(cardApi);
-  popupImg.setEventListeners();
 }
 
 const createCard = function (cardDataApi) {
