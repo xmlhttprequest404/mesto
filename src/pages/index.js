@@ -25,9 +25,15 @@ import Api from '../components/Api';
 import PopupForDelete from '../components/PopupForDelete';
 
 const apiOptions = {
-  url: 'https://mesto.nomoreparties.co/v1/cohort-75/',
+  // url: 'https://mesto.nomoreparties.co/v1/cohort-75/',
+  // headers: {
+  //   authorization: 'ecf50b82-c9ee-411a-985f-cc6b9ba52a55',
+  //   "Content-Type": "application/json"
+  // }
+
+  url: 'https://mesto.nomoreparties.co/v1/cohort-76/',
   headers: {
-    authorization: 'ecf50b82-c9ee-411a-985f-cc6b9ba52a55',
+    authorization: '8f8af84c-eec3-4285-befa-34c0d077142c',
     "Content-Type": "application/json"
   }
 }
