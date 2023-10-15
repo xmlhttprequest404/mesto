@@ -2,6 +2,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: 120px 2fr 1fr;
+  grid-template-rows: 125px;
   column-gap: 30px;
   justify-content: flex-start;
   position: relative;
